@@ -86,11 +86,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [ads] = useState<Ad[]>(generateMockAds());
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState<Filters>({
-    category: '',
+    category: 'all',
     priceMin: null,
     priceMax: null,
     location: '',
-    condition: '',
+    condition: 'all',
     searchQuery: ''
   });
 
@@ -100,11 +100,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const filteredAds = useMemo(() => {
     return ads.filter(ad => {
-      if (filters.category && ad.category !== filters.category) return false;
+      if (filters.category && filters.category !== 'all' && ad.category !== filters.category) return false;
       if (filters.priceMin !== null && ad.price < filters.priceMin) return false;
       if (filters.priceMax !== null && ad.price > filters.priceMax) return false;
       if (filters.location && !ad.location.toLowerCase().includes(filters.location.toLowerCase())) return false;
-      if (filters.condition && ad.condition !== filters.condition) return false;
+      if (filters.condition && filters.condition !== 'all' && ad.condition !== filters.condition) return false;
       if (filters.searchQuery && !ad.title.toLowerCase().includes(filters.searchQuery.toLowerCase()) &&
           !ad.description.toLowerCase().includes(filters.searchQuery.toLowerCase())) return false;
       
@@ -118,11 +118,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const clearFilters = useCallback(() => {
     setFilters({
-      category: '',
+      category: 'all',
       priceMin: null,
       priceMax: null,
       location: '',
-      condition: '',
+      condition: 'all',
       searchQuery: ''
     });
   }, []);

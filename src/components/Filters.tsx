@@ -34,7 +34,7 @@ export const Filters = () => {
   const [conditionOpen, setConditionOpen] = useState(true);
 
   const conditions = [
-    { value: '', label: 'All Conditions' },
+    { value: 'all', label: 'All Conditions' },
     { value: 'new', label: 'New' },
     { value: 'like-new', label: 'Like New' },
     { value: 'used', label: 'Used' },
@@ -47,11 +47,11 @@ export const Filters = () => {
 
   const getActiveFiltersCount = () => {
     let count = 0;
-    if (filters.category) count++;
+    if (filters.category && filters.category !== 'all') count++;
     if (filters.priceMin !== null) count++;
     if (filters.priceMax !== null) count++;
     if (filters.location) count++;
-    if (filters.condition) count++;
+    if (filters.condition && filters.condition !== 'all') count++;
     return count;
   };
 
@@ -67,15 +67,15 @@ export const Filters = () => {
             </Button>
           </div>
           <div className="flex flex-wrap gap-2">
-            {filters.category && (
-              <Badge variant="secondary" className="flex items-center gap-1">
-                {filters.category}
-                <X 
-                  className="h-3 w-3 cursor-pointer" 
-                  onClick={() => updateFilters({ category: '' })}
-                />
-              </Badge>
-            )}
+              {filters.category && filters.category !== 'all' && (
+                <Badge variant="secondary" className="flex items-center gap-1">
+                  {filters.category}
+                  <X 
+                    className="h-3 w-3 cursor-pointer" 
+                    onClick={() => updateFilters({ category: 'all' })}
+                  />
+                </Badge>
+              )}
             {filters.priceMin !== null && (
               <Badge variant="secondary" className="flex items-center gap-1">
                 Min: ${filters.priceMin}
@@ -103,15 +103,15 @@ export const Filters = () => {
                 />
               </Badge>
             )}
-            {filters.condition && (
-              <Badge variant="secondary" className="flex items-center gap-1">
-                {conditions.find(c => c.value === filters.condition)?.label}
-                <X 
-                  className="h-3 w-3 cursor-pointer" 
-                  onClick={() => updateFilters({ condition: '' })}
-                />
-              </Badge>
-            )}
+              {filters.condition && filters.condition !== 'all' && (
+                <Badge variant="secondary" className="flex items-center gap-1">
+                  {conditions.find(c => c.value === filters.condition)?.label}
+                  <X 
+                    className="h-3 w-3 cursor-pointer" 
+                    onClick={() => updateFilters({ condition: 'all' })}
+                  />
+                </Badge>
+              )}
           </div>
         </div>
       )}
@@ -130,7 +130,7 @@ export const Filters = () => {
               <SelectValue placeholder="Select category" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Categories</SelectItem>
+              <SelectItem value="all">All Categories</SelectItem>
               {categories.map((category) => (
                 <SelectItem key={category} value={category}>
                   {category}
