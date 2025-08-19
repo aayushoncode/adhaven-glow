@@ -172,20 +172,45 @@
 @layer components {
   /* Glass Morphism Components */
   .glass-card {
-    @apply backdrop-blur-md bg-gradient-to-br from-white/10 to-white/5 
-           border border-white/20 shadow-[0_8px_32px_rgba(31,38,135,0.37)]
-           dark:from-white/5 dark:to-white/2 dark:border-white/10;
+    @apply backdrop-blur-md border shadow-[0_8px_32px_rgba(31,38,135,0.37)];
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .dark .glass-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
   }
   
   .glass-navbar {
-    @apply backdrop-blur-xl bg-white/70 border-b border-white/20
-           dark:bg-black/70 dark:border-white/10;
+    @apply backdrop-blur-xl border-b;
+    background: rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .dark .glass-navbar {
+    background: rgba(0, 0, 0, 0.7);
+    border-color: rgba(255, 255, 255, 0.1);
   }
   
   .glass-button {
-    @apply backdrop-blur-sm bg-white/20 hover:bg-white/30 
-           border border-white/30 transition-all duration-300
-           dark:bg-white/10 dark:hover:bg-white/20 dark:border-white/20;
+    @apply backdrop-blur-sm border transition-all duration-300;
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  .glass-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  .dark .glass-button {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .dark .glass-button:hover {
+    background: rgba(255, 255, 255, 0.2);
   }
   
   /* Skeleton Components */
